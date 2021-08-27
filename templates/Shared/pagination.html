@@ -1,0 +1,27 @@
+<head>
+    {% load static %}
+    <script type="text/javascript" src="{% static 'js/shared/pagination.js' %}"></script>
+</head>
+<div class="paginationRight"><span id="firstRecordNum"></span>&nbsp;-&nbsp;<span id="lastRecordNum"></span>&nbsp; of
+    &nbsp;<span id="totalRecordNum">{{result.totalRecords}}</span>
+    <input type="hidden" id="totalRecords" name="totalRecords" value="{{result.totalRecords}}" />
+</div>
+<div class="paginationLeft">
+    <div class="firstPage" id="pgnFirst" onclick="goToFirst()">First</div>
+    <div class="previousPage" id="pgnPrevious" onclick="goToPrevious()">
+        <img src='../../static/assets/previous-arrow.png' class="previous-page-icon">
+    </div>
+
+    <div class="pageActive" id="pgnOpt1" onclick="routeToOptionOne()">1
+    </div>
+    <div class="pageInactive" id="pgnOpt2" onclick="routeToOptionTwo()">2
+    </div>
+
+    <div class="pageInactive" id="pgnOpt3" onclick="routeToOptionThree()">3
+    </div>
+
+    <div class="nextPage" id="pgnNext" onclick="goToNext()">
+        <img src='../../static/assets/next-arrow.png' class="next-page-icon">
+    </div>
+    <div class="lastPage" id="pgnLast" onclick="goToLast()">Last</div>
+</div>

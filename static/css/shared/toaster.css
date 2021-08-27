@@ -1,0 +1,63 @@
+#snackbar {
+  width: 235px;
+  display: flex !important;
+  align-self: center;
+  font-size: 15px;
+}
+
+#toaster-container.show {
+  display: flex !important;
+  visibility: visible;
+  -webkit-animation: fadein 0.8s, fadeout 0.6s 3s;
+  animation: fadein 0.8s, fadeout 0.6s 3s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+      bottom: 0;
+      opacity: 0;
+  }
+  to {
+      bottom: 30px;
+      opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+      bottom: 0;
+      opacity: 0;
+  }
+  to {
+      bottom: 30px;
+      opacity: 1;
+  }
+}
+
+#close-image {
+  display: flex;
+  width: 10px;
+  height: 10px;
+}
+
+#toaster-container {
+  visibility: hidden;
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  height: 70px;
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  display: flex !important;
+  align-self: flex-end;
+  position: fixed;
+  z-index: 1;
+  bottom: 30px;
+  right: 2% !important;
+  font-size: 17px;
+}
+
+.image-section {
+  display: flex;
+}

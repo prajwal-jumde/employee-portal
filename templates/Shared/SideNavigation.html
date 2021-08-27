@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/shared/side.css' %}">
+    <script type="text/javascript" src="{% static 'js/shared/cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/shared/side.js' %}"></script>
+</head>
+
+<body>
+    <div class="sideNavigation-section">
+        <div class="image-container">
+            <img class="sidenav-icon" src="{% static 'assets/LOGO-DARK-02.png' %}">
+        </div>
+        <a href="../../../users" id="userRoleDisplay" class="adminUser">
+            <div class="sideNav-content">
+                <span class="side-block" id="umBlock"></span>
+                <img class="sideNav-icon" src="{% static 'assets/ic_group_24px.png' %}">
+                <div class="header-name" id="um">User Management</div>
+            </div>
+        </a>
+
+        <a href="../../../users/list-leave/" class="adminUser">
+            <div class="sideNav-content">
+                <span class="side-block" id="lsBlock"></span>
+                <img class="sideNav-icon" src="{% static 'assets/storeCat.png' %}">
+                <div class="header-name" id="ls">Leave Settings</div>
+            </div>
+        </a>
+        <a href="../../../users/dashboard/" id="userRoleDisplay" class="employeeUser">
+            <div class="sideNav-content">
+                <span class="side-block" id="dsBlock"></span>
+                <img class="sideNav-icon" src="{% static 'assets/bulkupload.png' %}">
+                <div class="header-name" id="ds">Dashboard</div>
+            </div>
+        </a>
+        <a href="../../../users/list-leave-request" class="">
+            <div class="sideNav-content">
+                <span class="side-block" id="lrBlock"></span>
+                <img class="sideNav-icon" src="{% static 'assets/productmgmt.png' %}">
+                <div class="header-name" id="lr">Leave Requests</div>
+            </div>
+        </a>
+
+    </div>
+</body>
+
+</html>

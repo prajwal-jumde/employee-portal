@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="icon" type="image/png" href="{% static 'assets/Group6846.svg'%}" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/shared/cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/shared/constants.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/shared/loader.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/shared/loader.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shared/toaster.css' %}">
+    <link rel="stylesheet" href="{% static 'css/UserManagement/UserManagement.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shared/pagination.css' %}">
+    <script type="text/javascript" src="{% static 'js/UserManagement/UserManagement.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/shared/constants.js' %}"></script>
+    <link href="{% static 'fonts/Montserrat-Regular.ttf' %}" rel="stylesheet" media="screen">
+    <script type="text/javascript">
+        var result = "{{result | safe}}";
+        var userMaster = JSON.parse(("{{result.userList | safe}}").replace(/'/g, '"'));
+    </script>
+</head>
+
+<body>
+    <div id="loader" class="center"></div>
+    <div id="tester" class="left_bottom"> </div>
+    <div class="main-container">
+        {% include '../Shared/SideNavigation.html' %}
+        <div class="header-container">
+            {% include '../Shared/HeaderNavigation.html' %}
+            <div class="module-section">
+                <div class="module-name-section">User Management</div>
+                <div class="search-section">
+                    <div class="search-container">
+                        <input class="search-field" type="search" placeholder="Search" id="searchKey">
+                        <img class="search-icon" id="search-image" src="../static/assets/magnifying-glass.png"
+                            onclick="searchRecords()"></div>
+                </div>
+                <div class="add-user-container">
+                    <button class="add-button" id="add-button" data-toggle="modal" data-backdrop="static"
+                        data-target="#myModal" onclick="resetForm()">ADD</button>
+                    <!-- Modal -->
+                    <form name=userForm id=addForm autocomplete="off">
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title" id="modal_header">ADD USER</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="fullName-field">
+                                            <label class="fullName-label">Full Name*</label>
+                                            <input type=text id=fullName value="" required class="fullName-input">
+                                            <div class="validation-field" id="fullName_error">
+                                            </div>
+                                        </div>
+                                        <div class="fullName-field">
+                                            <label class="fullName-label">Email-ID*</label>
+                                            <input type="email" id=emailId value="" required class="fullName-input">
+                                            <div class="validation-field" id="emailId_error">
+                                            </div>
+                                        </div>
+                                        <div class="user-field">
+                                            <div class="password-field">
+                                                <div class="label-container">
+                                                    <label class="fullName-label">Username*</label>
+                                                    <label class="note-label">*Max 20 characters</label></div>
+                                                <input type="text" class="fullName-input" required value="" id=userName>
+                                                <div class="validation-field" id="userName_error">
+                                                </div>
+                                            </div>
+                                            <div class="userId-field" id=password-section>
+                                                <div class="label-container">
+                                                    <label class="fullName-label" id="newPassword">Password*</label>
+                                                    <label class="note-label">*Min 8 characters</label></div>
+                                                <input class="fullName-input" value="" id="password" required
+                                                    type="password">
+                                                <div class="validation-field" id="password_error">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="user-field">
+                                            <div class="userId-field">
+                                                <label class="fullName-label">User-ID</label>
+                                                <input type="text" id=userId value="" required class="fullName-input">
+                                            </div>
+                                            <div class="userId-field">
+                                                <label class="fullName-label">Role*</label>
+                                                <select class="roleuserRole" id=userRole>
+                                                    <option value="admin">Admin</option>
+                                                    <option value="employee">Employee</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="password-field">
+                                            <label class="fullName-label">Phone Number*</label>
+                                            <input class="fullName-input" value="" min=0 type="number" required
+                                                id=phoneNumber>
+                                            <div class="validation-field" id="phoneNumber_error">
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                    </div>
+                                    <div class="footer">
+                                        <div class="button-section">
+                                            <button type="button" class="close-button"
+                                                data-dismiss="modal">CANCEL</button></div>
+                                        <button type="button" class="submit-button" id="submit"
+                                            onclick="submitAddForm()"></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="main-screen">
+                <table id="userTable">
+                    <tr>
+                        <!-- <th onclick="sortHeader('user_id')">User ID
+                            <img class="sort-icon" src="../../static/assets/sortIcon.png">
+                        </th> -->
+                        <th onclick="sortHeader('user_name')">Username
+                            <img class="sort-icon" src="../../static/assets/sortIcon.png">
+                        </th>
+                        <th onclick="sortHeader('full_name')">Full Name
+                            <img class="sort-icon" src="../../static/assets/sortIcon.png">
+                        </th>
+                        <th id="email-column" onclick="sortHeader('email_id')">Email ID
+                            <img class="sort-icon" src="../../static/assets/sortIcon.png">
+                        </th>
+                        <th>Phone No
+                        </th>
+                        <th >Enable/Disable User
+                        </th>
+                        <th onclick="sortHeader('user_role')">Role
+                            <img class="sort-icon" src="../../static/assets/sortIcon.png">
+                        </th>
+                        <th id="action-column" class='add-button'>Actions</th>
+                    </tr>
+                    {% for user in result.userList %}
+                    <tr class="data-row">
+                        <!-- <td id="user_{{user.user_name}}" value="{{user.user_name}}">{{user.user_name}}</td>
+                        <td id="user_{{user.user_name}}_full_name" value="{{user.full_name}}">{{user.full_name}}</td>
+                        <td id="user_{{user.user_name}}_email" value="{{user.email_id}}">{{user.email_id}}</td>
+                        <td id="user_{{user.user_name}}_phone" value="{{user.user_phone}}">{{user.user_phone}}</td>
+                        <td id="user_{{user.user_name}}_user_role" value="{{user.user_role}}">{{user.user_role}}</td>
+                        <td class = 'add-button'>
+                            <img class="action-icons" src="../static/assets/edit.png"
+                                onClick="openEditForm('{{user.user_name}}')">
+                            <img class="delete-modal action-icons" data-toggle="modal" data-backdrop="static"  id="{{user.user_name}}"
+                                data-target="#deleteModal" src="../static/assets/delete.png">
+                        </td> -->
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="modal fade" id="deleteModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" id="modal_header">DELETE USER</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Are you sure you want to delete?</h4>
+                        </div>
+                        <div class="footer">
+                            <div class="button-section">
+                                <button type="button" class="close-button" data-dismiss="modal">NO</button>
+                            </div>
+                            <button type="button" class="submit-button delete-close=" delete"
+                                onClick="deleteUser(this.id)">YES</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="no-record-container">No Records Found</div>
+            <div class="tableFooter">
+                <div class="paginationContainer" id="tableFooter">
+                    {% include "Shared/pagination.html" %}
+                </div>
+            </div>
+            <div id="toaster-container">
+                <div id="snackbar">
+                </div>
+                <div class="image-section">
+                    <img id="close-image" src="../../static/assets/close-icon.png" onclick="closeToaster()">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
