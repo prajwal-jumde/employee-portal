@@ -4,6 +4,7 @@ All the API call in the portal are done using ajax so all the actions in the por
 and all the APIS can be used from tools such as Postman
 
 Type of users :
+
     admin : can add users,approve reject leaves, add leave setting
     employee : can view dashboard and apply for leaves
 
@@ -11,7 +12,8 @@ Before applying for a leave please create a leave setting (confiiguration) using
 
 
 
-Create  an initial user lor login using this api :
+Create  an initial user lor login using this api -
+
     URL : http://127.0.0.1:8000/users/user-action/
     Request body :{
         "action": "add",
