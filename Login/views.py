@@ -75,6 +75,7 @@ def check_user(request, user, username, password):
                 # response.set_cookie(
                     # key='user_role', value=users_object.user_role, expires=expires)
                 response.set_cookie(key='user', value=user, expires=expires)
+                response.set_cookie(key='user_role', value=user, expires=expires)
                 return response
             else:
                 return JsonResponse({'statusMessage': constants.WRONG_PASSWORD, 'status': constants.ERROR_CODE}, status=500, safe=False)

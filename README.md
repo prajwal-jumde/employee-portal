@@ -30,6 +30,7 @@ How to Run :
 
     Install Python 3 and pip 
     use the command : pip install -r requirements.txt
+    python -m pip install --no-use-pep517 bcrypt
     configure the database setting in base.py file according to your database
     use the command : python manage.py migrate
     use the command : python manage.py runserver

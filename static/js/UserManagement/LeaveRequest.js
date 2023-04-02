@@ -358,11 +358,18 @@ function listLeaves(allCategoryList) {
 ////////////////////////////////////////////////////// ADD NEW ROW  ////////////////////////////////////////////////////////
 function addNewLeave(leave) {
 
+  var statusColor = 'black'
+  if (leave.status == "approved"){
+    statusColor='green'
+  }else if (leave.status == "rejected"){
+    statusColor='red'
+  }
+
   var addRow =
     '<tr class="data-row">' +
     '<td id="leave_' + leave.full_name + '_full_name" value="' + leave.full_name + '">' + leave.full_name + '</td>' +
     '<td id="leave_' + leave.leave_type + '_leave_type" value="' + leave.leave_type + '">' + leave.leave_type + '</td>' +
-    '<td id="leave_' + leave.status + '_status" value="' + leave.status + '">' + leave.status + '</td>' +
+    '<td id="leave_' + leave.status + '_status" value="' + leave.status + '" style="color:'+statusColor+' ";>' + leave.status + '</td>' +
     '<td id="leave_' + leave.leave_from + '_leave_from" value="' + leave.leave_from + '">' + leave.leave_from + '</td>' +
     '<td id="leave_' + leave.leave_to + '_leave_to" value="' + leave.leave_to + '">' + leave.leave_to + '</td>' +
     '<td id="leave_' + leave.paid_leave + '_paid_leave" value="' + leave.paid_leave + '">' + leave.paid_leave + '</td>' +
@@ -430,6 +437,7 @@ function sortHeaderName(sortColumn) {
     },
     error: function (err) {
       console.log(error);
+      window.location.replace('/');
     }
   });
 }

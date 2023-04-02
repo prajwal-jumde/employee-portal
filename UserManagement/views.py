@@ -150,10 +150,8 @@ def userListing(request):
     try:
         userInfo = checkSession(request)
         cookie = request.COOKIES
-
         if userInfo['user'].lower() != 'admin':
-            return HttpResponseRedirect('../store/getStore/')
-
+            return HttpResponseRedirect('../users/dashboard/')
         expires = getExpires(1800)
 
         if request.method == "GET":
@@ -194,7 +192,7 @@ def userAction(request):
         userInfo = checkSession(request)
         expires = getExpires(1800)
 
-        assert request.method == "POST", constants.FORM_ERROR
+        assert request.method == "POST", constants.POST_METHOD_ERROR
         data = json.loads(request.body)
         status = True
         if data['action'] == "add":
